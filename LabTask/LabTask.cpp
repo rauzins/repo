@@ -1,5 +1,4 @@
 // Lab.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include <fstream>
@@ -7,44 +6,51 @@
 
 using namespace std;
 
-const string directory = ""; // "D:\\StudyC\\Lab\\Lab 8\\";
 const char sentinel = '#';
-
-
 
 int main()
 {
-	/*Task 1: Sentinel While Loop*/
-	cout << "-------------" << endl;
+	// Task 1: Sentinel While Loop
+
+	cout << "---------------------------" << endl;
 	cout << "Task 1: Sentinel While Loop" << endl;
+	cout << "---------------------------" << endl;
+	cout << "Opening a file to read..." << endl;
 	cout << endl;
 
-	string fileName1;
+	//Declare file name variable
+	string inFileName1;
+
+	// Ask user to enter input file name
 	cout << "Please enter the name of the file you want to read: ";
-	cin >> fileName1;
+	cin >> inFileName1;
 	cout << endl;
 
-	// Declare input stream
-	ifstream input(directory + fileName1);
+	// Declare stream variable
+	ifstream input;
 
+	// Open input file and set parameter not to skip whitespaces
+	input.open(inFileName1);
 	input >> noskipws;
 
+	// Check if the file is found
 	if (!input) {
-		cout << "Unable to open input file. Exiting." << endl;
+		cout << "Unable to open input file." << endl;
 		return 0;
 	}
-	else cout << "File opened to read..." << endl;
+	else cout << "Contents of " << inFileName1 << " follow..." << endl; 
 
 	cout << endl;
 
-	char temp{};
+	// Print characters using sentinel while loop
+	char temp1{};
 
-	while (temp != sentinel)
+	while (temp1 != sentinel)
 	{
-		input >> temp;
-		if (temp != sentinel)
+		input >> temp1;
+		if (temp1 != sentinel)
 		{
-			cout << temp;
+			cout << temp1;
 		}
 		else
 		{
@@ -52,7 +58,7 @@ int main()
 		}
 	}
 
-	// close the input file
+	// Close file
 	input.close();
 
 	cout << endl;
@@ -60,60 +66,69 @@ int main()
 	cout << "-------------" << endl;
 	cout << endl;
 
-	/*End of Task 1*/
+	// End of Task 1
 
-	/*Task 2: Decrypt a file*/
+	// Task 2: Decrypt a file
+	cout << "----------------------" << endl;
+	cout << "Task 2: Decrypt a file" << endl;
+	cout << "----------------------" << endl;
+	cout << "Opening a file to decrypt..." << endl;
+	cout << endl;
 
-	//Declare stream variables
+	// Declare stream variables
 	ifstream inFile;
 	ofstream outFile;
 
-	cout << "-------------" << endl;
-	cout << "Task 2: Decrypt a file" << endl;
-	cout << endl;
+	// Declare file name variables
+	string inFileName2;
+	string outFileName2;
 
-	string inFileName;
-	string outFileName;
-
+	// Ask user to enter input file name
 	cout << "Please enter the name of the file you want to decrypt: ";
-	cin >> inFileName;
+	cin >> inFileName2;
 	cout << endl;
 
-	// open the input file
-	inFile.open(directory + inFileName);
-
-	//inFile.open(directory + fileName2);
-
-	if (!inFile) {
-		cout << "Unable to open input file. Exiting." << endl;
-		return 0;
-	}
-	else cout << "File opened to read..." << endl;
-
+	// Declare decription key variable
 	int key;
 
-	// ask user for encryption key  
+	// Ask user for encryption key  
 	cout << "Do you know the secret key? Hint: it is a very Merry number." << endl;
 	cout << "Please enter the secret key now: ";
 	cin >> key;
 	cout << endl;
 
-	cout << "Please enter the file name to store the decrypted message: ";
-	cin >> outFileName;
+	// Open the input file
+	inFile.open(inFileName2);
+
+	// Check if the file is found
+	if (!inFile) {
+		cout << "Unable to open input file." << endl;
+		return 0;
+	}
+	else cout << inFileName2 << " is being decrypted..." << endl;
+
 	cout << endl;
 
-	outFile.open(directory + outFileName);
+	// Ask user for output file name
+	cout << "Opening output file to store decrypted message..." << endl;
+	cout << "Please enter the file name: ";
+	cin >> outFileName2;
+	cout << endl;
 
-	char c{};
+	outFile.open(outFileName2);
+
+	// Implement message decryption with Caesar shift encryption using EOF while loop
+	char temp2{};
 	while (!inFile.eof())
 	{
-		inFile >> c;
-		cout << char(int(c) - key);
-		outFile << char(int(c) - key);
-
+		inFile >> temp2;
+		outFile << char(int(temp2) - key);
 	}
 
-	// close filese
+	cout << endl;
+	cout << "The decrypted message can be found in: " << outFileName2 << endl;
+
+	// Close files
 	inFile.close();
 	outFile.close();
 
@@ -124,19 +139,8 @@ int main()
 	cout << endl;
 	cout << endl;
 
-	/*End of Task 2*/
+	// End of Task 2
 
+	cout << "End of Program. Good Bye.";
 	return 0;
 }
-
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
